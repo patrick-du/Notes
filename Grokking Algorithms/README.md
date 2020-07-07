@@ -1,11 +1,11 @@
-# Summary of Notes & Examples from Grokkings Algorithms
+# Grokkings Algorithms Notes & Examples
 
 https://livebook.manning.com/book/grokking-algorithms
 
 #### Topics
 - [x] Binary Search
 - [x] Selection Sort
-- [ ] Recursion
+- [x] Recursion
 - [ ] Quick Sort
 - [ ] Hash Tables
 - [ ] Breadth-First Search (BFS)
