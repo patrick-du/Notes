@@ -6,8 +6,8 @@ https://livebook.manning.com/book/grokking-algorithms
 - [x] Binary Search
 - [x] Selection Sort
 - [x] Recursion
-- [ ] Quick Sort
-- [ ] Hash Tables
+- [x] Quick Sort
+- [x] Hash Tables
 - [ ] Breadth-First Search (BFS)
 - [ ] Dijkstra's Algorithm
 - [ ] Greedy Algorithms
