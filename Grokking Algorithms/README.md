@@ -8,7 +8,7 @@ https://livebook.manning.com/book/grokking-algorithms
 - [x] Recursion
 - [x] Quick Sort
 - [x] Hash Tables
-- [ ] Breadth-First Search (BFS)
+- [X] Breadth-First Search (BFS)
 - [ ] Dijkstra's Algorithm
 - [ ] Greedy Algorithms
 - [ ] Dynamic Programming
