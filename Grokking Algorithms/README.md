@@ -9,7 +9,7 @@ https://livebook.manning.com/book/grokking-algorithms
 - [x] Quick Sort
 - [x] Hash Tables
 - [X] Breadth-First Search (BFS)
-- [ ] Dijkstra's Algorithm
+- [X] Dijkstra's Algorithm
 - [ ] Greedy Algorithms
 - [ ] Dynamic Programming
 - [ ] K-Nearest Neighbours
