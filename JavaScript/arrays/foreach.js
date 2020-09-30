@@ -1,7 +1,5 @@
 // Implementing Array.prototype.forEach()
 
-// arr.forEach(callback(currentValue)
-
 class ExtendedForEachFunctionality extends Array {
   forEach(arr, forEachFcn) {
     for (let i of arr) {
