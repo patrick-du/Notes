@@ -11,4 +11,3 @@
 - [ ] Greedy Algorithms
 - [ ] Dynamic Programming
 - [ ] K-Nearest Neighbours
-- [ ] Dynamic Programming
