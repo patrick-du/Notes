@@ -9,60 +9,99 @@
   - Endpoints
   - How to invoke it and error handling
   - API efficiency, latency, scalability, load balancing, authentication, monitoring, logging
-- gRPC solves these problems, at it's core, an API is a contract that takes a REQUEST (client) and returns a RESPONSE (server)
+- At it's core, an API is a contract that takes a REQUEST (client) and returns a RESPONSE (server) and gRPC takes this idea to provide a solution
 
 ---
 
 ## What is gRPC
 
-- At a high level, with gRPC, you only need to define messages and services using Protocol Buffers
-- The rest of the gRPC code will be generated using the .proto file
-- Modern, fast and efficient, build on top of HTTP/2, low latency, supports streaming, language independent, and makes it easy to plug in authentication, load balancing, logging, and monitoring
-- RPC: Remote Procedure Call - In your client code, it looks like you're calling a function directly on the server
-  ![RPC](https://i.gyazo.com/6b175d4f7e585929a76aacff12923ba1.png)
+- An open source RPC (remote procedure call) framework that can run in any environment
+- Efficiently connects polyglot services in a microservices styled architecture with support for load balancing, tracing, health checking, and authentication
+- gRPC uses Protocol Buffers as the Interface Definition Language (IDL) for describing the service interface and payload message structure
+- At a high level, gRPC is based around defining a service (specifying methods to be called remotely with their parameters and return types), making it easier to create distributed services
+
+  - Server implements this interface and runs a gRPC server to handle client calls
+  - Client has a stub that provides the same methods as the server
+
+  ![gRPC](https://grpc.io/img/landing-2.svg)
 
 ---
 
 ## Protocol Buffers
 
-- Used to define the:
-  - Messages: data, request and response)
+- gRPC uses Protocol Buffers to serialize structured data
+- A Protocol Buffer (.proto) file contains:
+  - Messages: data for request & response
   - Service: service name and RPC endpoints
-- Finally, code is generated from this .proto file
+- A Protocol Buffer compiler (protoc) is used with a gRPC plugin to generate client & server code as well as regular protocol buffer code for populating, serializing, and retrieving message types from your proto file
 
-```javascript
-// Example of Protocol Buffer
+```protobuf
+// Example of Protocol Buffer (.proto) File
 syntax = "proto3";
-
-// Data
-message Greeting {
-    string first_name = 1;
-}
-
-// Request
-message GreetRequest {
-    Greeting greeting = 1;
-}
-
-// Response
-message GreetResponse {
-    string result = 1;
-}
 
 // Service
 service GreetService {
     rpc Greet(GreetRequest) returns (GreetResponse) {};
 }
+
+// Request
+message GreetRequest {
+    string name = 1;
+}
+
+// Response
+message GreetResponse {
+  string message = 1;
+}
 ```
 
-## Efficiency of Protocol Buffers over JSON
+- Efficiency of Protocol Buffers compared to JSON
+  - Language agnostic
+  - Save network bandwidth since data is binary meaning it is less CPU intensive and can be efficiently serialized
 
-- Protocol Buffers are language agnostic
-- Protocol Buffers save more network bandwidth since data is binary (less CPU intensive) and efficiently serialized (smaller payloads)
-- Ultimately, with gRPC, the use of Protocol Buffers means faster and more efficient communication, friendly with mobile devices that have slower CPU
-- Additionally, Protocol Buffers defines rules to make an API evolve without breaking existing clients (helpful for microservices)
+---
+
+## gRPC Service Methods
+
+- Unary RPC
+  - Client sends a single request to server and gets a single response
+- Server Streaming RPC
+  - Server returns a stream of messages in response to a client's request
+- Client Streaming RPC
+  - Client sends a stream of messages to the server and waits for server to respond with a single message
+- Bidirectional Streaming RPC
+  - Call is initiated by client invoking the method
+  - Client & server stream processing is application specific
+  - Both streams are independent so read and write messages can operate in any order
+  - Example: server waits until it receives all client messages before sending responses
+  - Example: server and client play ping-pong - client sends a request, server sends back a response, and cycle continues
+
+```protobuf
+  // Unary RPC
+  rpc SayHello(HelloRequest) returns (HelloResponse);
+
+  // Server Streaming RPC
+  rpc LotsOfReplies(HelloRequest) returns (stream HelloResponse);
+
+  // Client Streaming RPC
+  rpc LotsOfGreetings(stream HelloRequest) returns (HelloResponse);
+
+  // Bidirectional Streaming RPC
+  rpc BidiHello(stream HelloRequest) returns (stream HelloResponse);
+```
+
+---
+
+## gRPC Channels
+
+- Used when creating a client stub to provide a connection to a gRPC server
+- Clients specify channel arguments to modify gRPC default behaviour
+- Handling closing a channel is dependent on the language
+
+---
 
 ## Resources
 
 - [gRPC Introduction](https://www.youtube.com/watch?v=XRXTsQwyZSU)
 - [Protocol Buffers in gRPC](https://www.youtube.com/watch?v=yfZB2_rT_Pc)
+- [gRPC Documentation](https://grpc.io/docs/)
